@@ -18,12 +18,13 @@
 <body>
   <div class="container">
     <h4 class="mt-2 text-center">Search Image for create slider</h4>
-    <div class="form-inline mt-3 d-flex justify-content-center">
+    <form onsubmit="submitForm(event)" id="searchForm"  class="form-inline mt-3 d-flex justify-content-center">
       <div class="input-group col-md-6 mb-2">
         <input type="text" class="form-control" id="search" placeholder="nature">
       </div>
-      <button type="button" id="search-btn" class="btn btn-primary mb-2">Search</button>
-    </div>
+      <input type="submit" id="search-btn" class="btn btn-primary mb-2" />
+    </form>
+
     <section class="images">
       <div class="justify-content-around align-items-center mt-3 gallery-header mb-2">
         <h3 class="head-title text-center">Select image for create slider</h3>
