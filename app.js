@@ -48,7 +48,7 @@ const selectItem = (event, img) => {
     alert('Hey, Already added !')
   }
 }
-var timer
+var timer;
 const createSlider = () => {
   // check slider image length
   if (sliders.length < 2) {
@@ -68,7 +68,10 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000;
+  // if given duration is negetive, make it positive
+  const validDuration = Math.abs(document.getElementById('duration').value);
+  const duration = validDuration || 1000;
+
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
