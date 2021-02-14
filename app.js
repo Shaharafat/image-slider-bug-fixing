@@ -5,6 +5,7 @@ const searchBtn = document.getElementById("search-btn");
 const searchForm = document.getElementById("search-form");
 const sliderBtn = document.getElementById("create-slider");
 const sliderContainer = document.getElementById("sliders");
+const loader = document.getElementById("loader");
 // selected image
 let sliders = [];
 
@@ -15,8 +16,10 @@ const KEY = "15674931-a9d714b6e9d654524df198e00&q";
 
 // show images
 const showImages = (images) => {
+  // hide loader
+  toggleLoader(false);
+  
   imagesArea.style.display = "block";
-  gallery.innerHTML = "";
   // show gallery title
   galleryHeader.style.display = "flex";
   images.forEach((image) => {
@@ -119,6 +122,11 @@ const changeSlide = (index) => {
 // it will execute when form is submitted
 let submitForm = (event) => {
   event.preventDefault();
+  // remove gallery content first
+  gallery.innerHTML = "";
+  // show loader
+  toggleLoader(true);
+
   document.querySelector(".main").style.display = "none";
   clearInterval(timer);
   const search = document.getElementById("search");
@@ -129,3 +137,16 @@ let submitForm = (event) => {
 sliderBtn.addEventListener("click", function () {
   createSlider();
 });
+
+let toggleLoader = (isShown) =>{
+  let loaderClassList = loader.classList;
+  let addClass = (className) => loaderClassList.add(className);
+  let removeClass = (className) => loaderClassList.remove(className);
+  if (isShown) {
+    removeClass('d-none')
+    addClass('d-flex')
+  } else {
+    removeClass('d-flex')
+    addClass('d-none')
+  }
+}

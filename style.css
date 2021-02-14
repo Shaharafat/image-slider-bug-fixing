@@ -28,6 +28,10 @@ img {
   object-fit: cover;
 }
 
+.loader {
+  height: 130px;
+}
+
 .prev-next {
   position: absolute;
   top: 50%;
@@ -36,7 +40,8 @@ img {
   cursor: pointer;
 }
 
-.prev, .next {
+.prev,
+.next {
   background-color: transparent;
   padding: 8px 10px;
   color: #fff;
