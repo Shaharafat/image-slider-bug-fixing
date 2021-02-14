@@ -32,7 +32,7 @@ img {
   height: 130px;
 }
 
-.empty-box{
+.empty-box, .not-found{
   height: 150px;
 }
 

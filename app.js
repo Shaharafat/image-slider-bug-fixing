@@ -1,3 +1,4 @@
+const main = document.querySelector('.main');
 const imagesArea = document.querySelector(".images");
 const gallery = document.querySelector(".gallery");
 const galleryHeader = document.querySelector(".gallery-header");
@@ -7,6 +8,7 @@ const sliderBtn = document.getElementById("create-slider");
 const sliderContainer = document.getElementById("sliders");
 const loader = document.getElementById("loader");
 const emptyBox = document.getElementById("empty-box");
+const notFound = document.getElementById("not-found-box");
 // selected image
 let sliders = [];
 
@@ -36,7 +38,15 @@ const getImages = (query) => {
     `https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`
   )
     .then((response) => response.json())
-    .then((data) => showImages(data.hits))
+    .then((data) => {
+      console.log(data);
+      if (!data.hits.length) {
+        toggleItemVisibility(loader.classList, false);
+        toggleItemVisibility(notFound.classList, true);
+        return;
+      }
+      showImages(data.hits)
+    })
     .catch((err) => console.log(err));
 };
 
@@ -58,7 +68,7 @@ const selectItem = (event, img) => {
 
 // this will be called to add or remove images
 const goBack = () => {
-  document.querySelector(".main").style.display = "none";
+  main.style.display = "none";
   imagesArea.style.display = "block";
   // clear previous interval
   clearInterval(timer);
@@ -82,7 +92,6 @@ const createSlider = () => {
   `;
 
   sliderContainer.appendChild(prevNext);
-  let main = document.querySelector(".main");
   main.style.display = "block";
   // hide image aria
   imagesArea.style.display = "none";
@@ -140,10 +149,14 @@ let submitForm = (event) => {
   gallery.innerHTML = "";
   // hide empty box
   toggleItemVisibility(emptyBox.classList, false);
+  // hide not found icon
+  toggleItemVisibility(notFound.classList, false);
+  // hide main section
+  main.style.display = 'none';
   // show loader
   toggleItemVisibility(loader.classList, true);
 
-  document.querySelector(".main").style.display = "none";
+  main.style.display = "none";
   clearInterval(timer);
   const search = document.getElementById("search");
   getImages(search.value);
