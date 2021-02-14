@@ -6,6 +6,7 @@ const searchForm = document.getElementById("search-form");
 const sliderBtn = document.getElementById("create-slider");
 const sliderContainer = document.getElementById("sliders");
 const loader = document.getElementById("loader");
+const emptyBox = document.getElementById("empty-box");
 // selected image
 let sliders = [];
 
@@ -17,7 +18,7 @@ const KEY = "15674931-a9d714b6e9d654524df198e00&q";
 // show images
 const showImages = (images) => {
   // hide loader
-  toggleLoader(false);
+  toggleItemVisibility(loader.classList, false);
 
   imagesArea.style.display = "block";
   // show gallery title
@@ -137,8 +138,10 @@ let submitForm = (event) => {
   event.preventDefault();
   // remove gallery content first
   gallery.innerHTML = "";
+  // hide empty box
+  toggleItemVisibility(emptyBox.classList, false);
   // show loader
-  toggleLoader(true);
+  toggleItemVisibility(loader.classList, true);
 
   document.querySelector(".main").style.display = "none";
   clearInterval(timer);
@@ -151,8 +154,8 @@ sliderBtn.addEventListener("click", function () {
   createSlider();
 });
 
-let toggleLoader = (isShown) => {
-  let loaderClassList = loader.classList;
+let toggleItemVisibility = (item, isShown) => {
+  let loaderClassList = item;
   let addClass = (className) => loaderClassList.add(className);
   let removeClass = (className) => loaderClassList.remove(className);
   if (isShown) {

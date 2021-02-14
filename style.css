@@ -32,6 +32,10 @@ img {
   height: 130px;
 }
 
+.empty-box{
+  height: 150px;
+}
+
 .prev-next {
   position: absolute;
   top: 50%;
