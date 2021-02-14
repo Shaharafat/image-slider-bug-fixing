@@ -18,7 +18,7 @@ const KEY = "15674931-a9d714b6e9d654524df198e00&q";
 const showImages = (images) => {
   // hide loader
   toggleLoader(false);
-  
+
   imagesArea.style.display = "block";
   // show gallery title
   galleryHeader.style.display = "flex";
@@ -48,12 +48,21 @@ const selectItem = (event, img) => {
     element.classList.add("added");
   } else {
     // if image already selected,
-    // remove it from array and 
+    // remove it from array and
     // remove the added class.
     sliders.splice(item, 1);
     element.classList.remove("added");
   }
 };
+
+// this will be called to add or remove images
+const goBack = () => {
+  document.querySelector(".main").style.display = "none";
+  imagesArea.style.display = "block";
+  // clear previous interval
+  clearInterval(timer);
+};
+
 var timer;
 const createSlider = () => {
   // check slider image length
@@ -72,7 +81,8 @@ const createSlider = () => {
   `;
 
   sliderContainer.appendChild(prevNext);
-  document.querySelector(".main").style.display = "block";
+  let main = document.querySelector(".main");
+  main.style.display = "block";
   // hide image aria
   imagesArea.style.display = "none";
   // if given duration is negetive, make it positive
@@ -92,6 +102,9 @@ const createSlider = () => {
     slideIndex++;
     changeSlide(slideIndex);
   }, duration);
+  // this button will allow you to add or remove image.
+  let goBackButton = `<button id="backButton" onclick="goBack()" class="btn btn-primary mb-3">Add or Remove Image</button>`;
+  sliderContainer.insertAdjacentHTML("afterbegin", goBackButton);
 };
 
 // change slider index
@@ -138,15 +151,15 @@ sliderBtn.addEventListener("click", function () {
   createSlider();
 });
 
-let toggleLoader = (isShown) =>{
+let toggleLoader = (isShown) => {
   let loaderClassList = loader.classList;
   let addClass = (className) => loaderClassList.add(className);
   let removeClass = (className) => loaderClassList.remove(className);
   if (isShown) {
-    removeClass('d-none')
-    addClass('d-flex')
+    removeClass("d-none");
+    addClass("d-flex");
   } else {
-    removeClass('d-flex')
-    addClass('d-none')
+    removeClass("d-flex");
+    addClass("d-none");
   }
-}
+};
